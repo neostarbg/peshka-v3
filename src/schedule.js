@@ -20,18 +20,30 @@ const getClass = async (date) => {
     let day = date.getDay() % 7;
 
     const hour = date.getHours();
-    const min = date.getMinutes();
 
-    const hourEven = hour - hour%2; // ex. 2PM: 14 - 0 = 14 ; 3PM: 15 - 1 = 14
-
+    const hourEven = hour - hour%2; // ex. 2PM: 14 - 0 = 14 ; 3PM: 15 - 1 = 14 
 
     let found = false;
     let data = undefined;
     while(!found) {
+
         const classes = schedule.data[day];    
-        for(let entry in classes) {
-            if (classes[entry].time >= hourEven) {
+
+        // If this is true, then it failed, then there are no (more) classes for the current day
+        // Loop through future days and get the first class
+        if(day != date.getDay()) { 
+            if(classes.length > 0) {
+                data = classes[0];
+                data.day = day;
+                found = true;
+                break;
+            }
+        }
+
+        for(let entry in classes) {            
+            if (classes[entry].time >= hourEven) { 
                 data = classes[entry];
+                data.day = day;
                 found = true;
                 break;
             }
@@ -49,14 +61,49 @@ const getClass = async (date) => {
 module.exports.getCurrent = () => {
 
     const date = new Date();
+    
 
     return getClass(date);
 }
 
 module.exports.getNext = () => {
     const date = new Date() 
+    console.log("like");
     date.setHours(date.getHours() + 2);
 
     return getClass(date);
+}
+
+
+// Localize (format) the time and day of current and next class in the Hero section in the home page
+module.exports.localize = (current, next) => {
+
+    // In case the days of the week are different (e.g. last class for the day), display the days of the week
+    if (current.day != next.day) {
+        
+        format(current);
+        format(next);
+        
+    }
+}
+
+// Private helper function to format current and next class individually
+let format = cl => {
+    let daysOfWeek = ["Неделя", "Понеделник", "Вторник", "Сряда", "Четвъртък", "Петък", "Събота"];
+    let date = new Date();
+
+    // Class is today
+    if(cl.day == date.getDay()) {
+        cl.time = `Днес в ${cl.time}`;
+    }
+
+    // Class is tomorrow
+    else if(cl.day == date.getDay() + 1) {
+        cl.time = `Утре в ${cl.time}`;
+    }
+
+    else {
+        cl.time = `${daysOfWeek[cl.day]} в ${cl.time}`
+    }
 }
 

@@ -4,16 +4,17 @@
     [
         [], 
         [
-            {"time": 14, "subject": "Програмиране на Python", "room": 703, "type": "e"},
-            {"time": 16, "subject": "Изкуствен Интелект",     "room": 406, "type": "l"}
+            {"time": 14, "subject": "Програмиране на Python",                  "room": 703, "type": "e"},
+            {"time": 16, "subject": "Изкуствен Интелект",                      "room": 406, "type": "l"},
+            {"time": 18, "subject": "Управление на софтуерни проекти",         "room": 702, "type": "e"}
         ], 
         [
-            {"time": 10, "subject": "Програмиране на Python", "room": 202, "type": "l"},
-            {"time": 12, "subject": "Програмиране на Python", "room": 202, "type": "l"},
-            {"time": 14, "subject": "Изкуствен Интелект",     "room": 403, "type": "e"}
+            {"time": 10, "subject": "Програмиране на Python",                  "room": 202, "type": "l"},
+            {"time": 12, "subject": "Програмиране на Python",                  "room": 202, "type": "l"},
+            {"time": 16, "subject": "Метрики за анализ на качеството на кода", "room": 306, "type": "l"}
         ], 
         [
-
+            {"time": 14, "subject": "Изкуствен Интелект",                      "room": 403, "type": "e"}
         ], 
         [
 

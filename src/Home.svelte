@@ -1,7 +1,7 @@
 <script>
     import Navbar from "./Navbar.svelte";
     import {onMount} from "svelte";
-    import {getCurrent, getNext} from "./schedule";
+    import {getCurrent, getNext, localize} from "./schedule";
 
     let group = 4;
 
@@ -14,14 +14,18 @@
     let current = undefined;
     let next = undefined;
 
-    $: loaded = current == undefined;
+    $: loaded = current != undefined && next != undefined;
     onMount(async () => {
+        console.log("I");
+        
         getCurrent().then((x) => {
             current = x;
         })
 
         getNext().then((x) => {
             next = x;
+
+            localize(current, next);
         })
     })
 </script>
@@ -30,20 +34,20 @@
     <div class="hero-content is-fullheight">
         <div class="container is-fullheight">
 
-            {#if !loaded}
-            <h1 class="title is-1 has-text-centered is-vertical-center has-text-shadow">
-                <span class="time">{current.time}:15</span> 
-                <span class="{current.type == "l"? "lecture" : "exercise"}">{current.type == "l"? "Лекция" : "Упр"}</span> 
-                по <span class="subject">{current.subject}</span> 
-                в стая <span class="room">{current.room}</span> 
-            </h1>
+            {#if loaded}
+                <h1 class="title is-size-1-tablet has-text-centered is-vertical-center has-text-shadow">
+                    <span class="time">{current.time}:15</span> 
+                    <span class="{current.type == "l"? "lecture" : "exercise"}">{current.type == "l"? "Лекция" : "Упр"}</span> 
+                    по <span class="subject">{current.subject}</span> 
+                    в стая <span class="room">{current.room}</span> 
+                </h1>
 
-            <h2 class="subtitle is-3 has-text-centered has-text-shadow">
-                <span class="time">14:15</span> 
-                <span class="lecture">Лекция</span> 
-                по <span class="subject">Изкуствен интелект</span> 
-                в стая <span class="room">406</span> 
-            </h2>
+                <h2 class="subtitle is-size-3-tablet has-text-centered has-text-shadow">
+                    <span class="time">{next.time}:15</span> 
+                    <span class="{next.type == "l"? "lecture" : "exercise"}">{next.type == "l"? "Лекция" : "Упр"}</span> 
+                    по <span class="subject">{next.subject}</span> 
+                    в стая <span class="room">{next.room}</span> 
+                </h2>
             {/if}
         </div>
     </div>

@@ -1,5 +1,7 @@
 <script>
     import Navbar from "./Navbar.svelte";
+    import {onMount} from "svelte";
+    import {getCurrent, getNext} from "./schedule";
 
     let group = 4;
 
@@ -8,17 +10,32 @@
     } else {
         window.localStorage.setItem('uni-group', 4);
     }
+
+    let current = undefined;
+    let next = undefined;
+
+    $: loaded = current == undefined;
+    onMount(async () => {
+        getCurrent().then((x) => {
+            current = x;
+        })
+
+        getNext().then((x) => {
+            next = x;
+        })
+    })
 </script>
 
 <section class="hero is-fullheight">
     <div class="hero-content is-fullheight">
         <div class="container is-fullheight">
 
+            {#if !loaded}
             <h1 class="title is-1 has-text-centered is-vertical-center has-text-shadow">
-                <span class="time">12:15</span> 
-                <span class="exercise">Упр</span> 
-                по <span class="subject">Програмиране на Python</span> 
-                в стая <span class="room">702</span> 
+                <span class="time">{current.time}:15</span> 
+                <span class="{current.type == "l"? "lecture" : "exercise"}">{current.type == "l"? "Лекция" : "Упр"}</span> 
+                по <span class="subject">{current.subject}</span> 
+                в стая <span class="room">{current.room}</span> 
             </h1>
 
             <h2 class="subtitle is-3 has-text-centered has-text-shadow">
@@ -27,17 +44,14 @@
                 по <span class="subject">Изкуствен интелект</span> 
                 в стая <span class="room">406</span> 
             </h2>
-
-            <h3 class="subtitle is-4 has-text-centered has-text-shadow">
-                Група {group}
-
-            </h3>
-
+            {/if}
         </div>
     </div>
 </section>
 
 <Navbar />
+
+asd  {loaded}
 
 <div style="height:400px;"></div>
 <style>

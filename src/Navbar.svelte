@@ -57,8 +57,6 @@
 {/if}
 </nav>
 
-<h1 class="title is-">{desktop} {windowWidth}</h1>
-
 <style>
 
     .navbar, .navbar-menu, .navbar-menu.is-active, .navbar-item, .navbar-link, .navbar-dropdown {

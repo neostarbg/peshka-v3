@@ -1,5 +1,13 @@
 <script>
     import Navbar from "./Navbar.svelte";
+
+    let group = 4;
+
+    if(window.localStorage.getItem("uni-group")) {
+        group = window.localStorage.getItem("uni-group");
+    } else {
+        window.localStorage.setItem('uni-group', 4);
+    }
 </script>
 
 <section class="hero is-fullheight">
@@ -19,6 +27,11 @@
                 по <span class="subject">Изкуствен интелект</span> 
                 в стая <span class="room">406</span> 
             </h2>
+
+            <h3 class="subtitle is-4 has-text-centered has-text-shadow">
+                Група {group}
+
+            </h3>
 
         </div>
     </div>

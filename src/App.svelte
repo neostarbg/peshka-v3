@@ -3,6 +3,7 @@
 	import E404 from "./E404.svelte";
 	import Home from "./Home.svelte";
 	import Cheatsheet from "./Cheatsheet.svelte"; 
+	import PrivacyPolicy from "./PrivacyPolicy.svelte";
 
 	let loc = window.location.pathname;
 
@@ -12,6 +13,8 @@
 		//Home Page
 	} else if (loc.match(/^\/cheat(sheet)?\/?$/)) {
 		currentPage = "cheatsheet";
+	} else if (loc.match(/^\/privacy(policy)?\/?$/)) {
+		currentPage = "privacy";
 	} else {
 		currentPage = "404";
 	}
@@ -22,6 +25,8 @@
 	<Home />
 {:else if currentPage == "cheatsheet"}
 	<Cheatsheet />
+{:else if currentPage == "privacy"}
+	<PrivacyPolicy />
 {:else}
 	<E404 />
 {/if}

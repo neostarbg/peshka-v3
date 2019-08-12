@@ -55,9 +55,11 @@
 
 <Navbar />
 
-asd  {loaded}
-
-<div style="height:400px;"></div>
+<footer>
+    <div class="container has-text-centered">
+        Peshka v3.0.0a1 <a href="/privacy">Поверителност на данните</a>
+    </div>
+</footer>
 <style>
 .hero {
     background-image: url("/img/hero-bg.jpg");

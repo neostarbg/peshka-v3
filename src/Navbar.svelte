@@ -35,10 +35,19 @@
   <div id="navbar" class="navbar-menu{menuActive? " is-active":""}" transition:slide>
     <div class="navbar-end">
       <a class="navbar-item" href="/">
-        Начало
+        <span class="icon"><i class="fa fa-home"></i></span>
+        <span class="is-hidden-desktop">Начало</span>
+      </a>
+      <a href="/settings" class="navbar-item">
+        <span class="icon"><i class="fa fa-cog"></i></span>
+        <span class="is-hidden-desktop">Настройки</span>
+      </a>
+      <a href="https://github.com/neostarbg/peshka-v3" class="navbar-item">
+        <span class="icon"><i class="fa fa-github"></i></span>
+        <span class="is-hidden-desktop">GitHub</span>
       </a>
 
-      <div class="navbar-item has-dropdown is-hoverable">
+      <!-- <div class="navbar-item has-dropdown is-hoverable">
         <a class="navbar-link">
           Група
         </a>
@@ -49,9 +58,7 @@
           <a class="navbar-item" on:click={() => {setGroup(3)}}> 3 </a>
           <a class="navbar-item" on:click={() => {setGroup(4)}}> 4 </a>
         </div>
-      </div>
-
-      <a href="https://github.com/neostarbg/peshka-v3" class="navbar-item"><span class="icon"><i class="fa fa-github"></i></span></a>
+      </div> -->
     </div>
   </div>
 {/if}

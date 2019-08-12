@@ -1,16 +1,13 @@
 <script>
     import Navbar from "./Navbar.svelte";
+    import Footer from "./Footer.svelte";
     import {onMount} from "svelte";
     import {getCurrent, getNext, localize} from "./schedule";
 
-    let group = 4;
+    export let group = 4;
+    export let theme = "light";
 
-    if(window.localStorage.getItem("uni-group")) {
-        group = window.localStorage.getItem("uni-group");
-    } else {
-        window.localStorage.setItem('uni-group', 4);
-    }
-
+    
     let current = undefined;
     let next = undefined;
 
@@ -30,7 +27,7 @@
     })
 </script>
 
-<section class="hero is-fullheight">
+<section class="hero is-fullheight {theme}">
     <div class="hero-content is-fullheight">
         <div class="container is-fullheight">
 
@@ -55,11 +52,8 @@
 
 <Navbar />
 
-<footer>
-    <div class="container has-text-centered">
-        Peshka v3.0.0a1 <a href="/privacy">Поверителност на данните</a>
-    </div>
-</footer>
+<Footer theme={theme} />
+
 <style>
 .hero {
     background-image: url("/img/hero-bg.jpg");
@@ -67,8 +61,17 @@
     background-position: top;
 }
 
+.hero.dark {
+    background-image: url("/img/hero-bg-dark.jpg");
+}
+
 h1 {
     padding-top: 20%;
+}
+
+.dark h1, .dark h2 {
+    color: #dadada;
+
 }
 
 .has-text-shadow {

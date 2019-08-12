@@ -1,6 +1,6 @@
 const getFromJson = () => {
     return new Promise(async (resolve, reject) => {
-        await fetch("/schedule.json").then(res => res.json()).then(json => {
+        await fetch("/schedule4.json").then(res => res.json()).then(json => {
             schedule = json;
         })
 
@@ -27,9 +27,11 @@ const getClass = async (date) => {
     let data = undefined;
     while(!found) {
 
-        const classes = schedule.data[day];    
+        const classes = schedule[day];    
 
-        // If this is true, then it failed, then there are no (more) classes for the current day
+        console.log(classes);
+
+        // If this is true, then there are no (more) classes for the current day
         // Loop through future days and get the first class
         if(day != date.getDay()) { 
             if(classes.length > 0) {
@@ -66,10 +68,25 @@ module.exports.getCurrent = () => {
     return getClass(date);
 }
 
-module.exports.getNext = () => {
-    const date = new Date() 
-    console.log("like");
-    date.setHours(date.getHours() + 2);
+module.exports.getNext = (current) => {
+
+    const date = new Date();
+    if (date.getDay() !== current.day) {
+        // Current class is today
+        
+        let diff = current.day - date.getDay();
+
+        if(diff < 0) {
+            diff += 7;
+        }
+
+        date.setHours(current.time + 2 + 24*diff);
+    } else {
+        date.setHours(current.time + 2);
+    }
+    
+
+    console.log(date);
 
     return getClass(date);
 }
@@ -77,7 +94,7 @@ module.exports.getNext = () => {
 
 // Localize (format) the time and day of current and next class in the Hero section in the home page
 module.exports.localize = (current, next) => {
-
+    
     // In case the days of the week are different (e.g. last class for the day), display the days of the week
     if (current.day != next.day) {
         

@@ -13,17 +13,16 @@
 
     $: loaded = current != undefined && next != undefined;
     onMount(async () => {
-        console.log("I");
         
         getCurrent().then((x) => {
             current = x;
+            getNext(current).then((x) => {
+                next = x;
+
+                localize(current, next);
+            })
         })
 
-        getNext().then((x) => {
-            next = x;
-
-            localize(current, next);
-        })
     })
 </script>
 
@@ -34,16 +33,17 @@
             {#if loaded}
                 <h1 class="title is-size-1-tablet has-text-centered is-vertical-center has-text-shadow">
                     <span class="time">{current.time}:15</span> 
-                    <span class="{current.type == "l"? "lecture" : "exercise"}">{current.type == "l"? "Лекция" : "Упр"}</span> 
-                    по <span class="subject">{current.subject}</span> 
-                    в стая <span class="room">{current.room}</span> 
+                    <span class="{current["Л/У"] == "Л"? "lecture" : "exercise"}">{current["Л/У"]== "Л"? "Лекция" : "Упр"}</span> 
+                    по <span class="subject">{current["Дисциплина"]}</span> 
+                    в зала <span class="room">{current["Зала"]}</span> 
+                    
                 </h1>
 
                 <h2 class="subtitle is-size-3-tablet has-text-centered has-text-shadow">
                     <span class="time">{next.time}:15</span> 
-                    <span class="{next.type == "l"? "lecture" : "exercise"}">{next.type == "l"? "Лекция" : "Упр"}</span> 
-                    по <span class="subject">{next.subject}</span> 
-                    в стая <span class="room">{next.room}</span> 
+                    <span class="{next["Л/У"] == "Л"? "lecture" : "exercise"}">{next["Л/У"]== "Л"? "Лекция" : "Упр"}</span> 
+                    по <span class="subject">{next["Дисциплина"]}</span> 
+                    в зала <span class="room">{next["Зала"]}</span> 
                 </h2>
             {/if}
         </div>

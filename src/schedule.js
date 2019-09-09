@@ -1,6 +1,6 @@
 const getFromJson = () => {
     return new Promise(async (resolve, reject) => {
-        await fetch("/schedule4.json").then(res => res.json()).then(json => {
+        await fetch("/schedule5.json").then(res => res.json()).then(json => {
             schedule = json;
         })
 
@@ -11,6 +11,13 @@ const getFromJson = () => {
 let schedule = undefined;
 
 const getClass = async (date) => {
+
+    let group = 3;
+    let lsgroup = window.localStorage.getItem("uni-group");
+
+    if(lsgroup) {
+        group = lsgroup;
+    }
 
     if(!schedule) {
         await getFromJson();
@@ -29,7 +36,18 @@ const getClass = async (date) => {
 
         const classes = schedule[day];    
 
-        console.log(classes);
+        // Remove irrelevant to the group classes
+        for(let i = 0; i < classes.length; i++) {
+            let subject = classes[i];
+
+            let subjectGroup = subject["Група"];
+
+            // If a group is specified in the schedule and it's different from the user's group,
+            // remove it
+            if(subjectGroup > 0 && subjectGroup !== group) {
+                classes.splice(i, 1);
+            }
+        }
 
         // If this is true, then there are no (more) classes for the current day
         // Loop through future days and get the first class
@@ -51,7 +69,7 @@ const getClass = async (date) => {
             }
         }
 
-        day++;
+        day = (day + 1) % 7;
         counter++;
 
         if (counter > 10) break;
@@ -69,32 +87,38 @@ module.exports.getCurrent = () => {
 }
 
 module.exports.getNext = (current) => {
-
     const date = new Date();
-    if (date.getDay() !== current.day) {
-        // Current class is today
-        
-        let diff = current.day - date.getDay();
-
-        if(diff < 0) {
-            diff += 7;
-        }
-
-        date.setHours(current.time + 2 + 24*diff);
-    } else {
-        date.setHours(current.time + 2);
-    }
     
+    // if (date.getDay() !== current.day) {
+    //     // Current class is today
+        
+    //     let diff = current.day - date.getDay();
 
-    console.log(date);
+    //     if(diff < 0) {
+    //         diff += 7;
+    //     }
 
+    //     date.setHours(current.time + 2 + 24*diff);
+    // } else {
+    //     date.setHours(time + 2);
+    // }
+
+    let diff = current.day - date.getDay();
+
+    if(diff < 0) {
+        diff += 7;
+    }
+
+    date.setHours(current.time + 2 + 24*diff);
+    date.setMinutes(0, 0, 0);
+    
     return getClass(date);
 }
 
 
 // Localize (format) the time and day of current and next class in the Hero section in the home page
 module.exports.localize = (current, next) => {
-    
+    // console.log(current, next);
     // In case the days of the week are different (e.g. last class for the day), display the days of the week
     if (current.day != next.day) {
         

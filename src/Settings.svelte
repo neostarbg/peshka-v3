@@ -52,7 +52,6 @@ let save = (evt) => {
                                 <option value="1">1 група</option>
                                 <option value="2">2 група</option>
                                 <option value="3">3 група</option>
-                                <option value="4">4 група</option>
                             </select>
                         </span>
                     </p>

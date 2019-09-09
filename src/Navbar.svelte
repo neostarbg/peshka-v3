@@ -46,19 +46,6 @@
         <span class="icon"><i class="fa fa-github"></i></span>
         <span class="is-hidden-desktop">GitHub</span>
       </a>
-
-      <!-- <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link">
-          Група
-        </a>
-
-        <div class="navbar-dropdown">
-          <a class="navbar-item" on:click={() => {setGroup(1)}}> 1 </a>
-          <a class="navbar-item" on:click={() => {setGroup(2)}}> 2 </a>
-          <a class="navbar-item" on:click={() => {setGroup(3)}}> 3 </a>
-          <a class="navbar-item" on:click={() => {setGroup(4)}}> 4 </a>
-        </div>
-      </div> -->
     </div>
   </div>
 {/if}

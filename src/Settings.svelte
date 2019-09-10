@@ -37,9 +37,11 @@ let save = (evt) => {
 {#if showSuccessNotification}
 <div class="notification is-success" transition:fade ><button class="delete"on:click={() => {showSuccessNotification = false;}}></button> Промените бяха успешно запазени</div>
 {/if}
-<div class="container {currentTheme}">
-    <div class="card {currentTheme}">
-        <div class="card-content">
+<div class="hero {currentTheme}">
+    <div class="hero-body {currentTheme}">
+        <div class="container">
+            <a class="button is-info" href="/">Назад</a>
+            <hr>
             <div class="title">
                 <h3>Настройки</h3>
             </div>
@@ -79,6 +81,11 @@ let save = (evt) => {
 
 
 <style>
+
+    .hero {
+        margin-top: 60px;
+        padding: 100px 0;
+    }
 
     .container.dark {
         color: #eaeaea;

@@ -1,31 +1,55 @@
 <script>
     import Navbar from "./Navbar.svelte";
     import Footer from "./Footer.svelte";
+    import Timetable from "./Timetable.svelte";
     import {onMount} from "svelte";
-    import {getCurrent, getNext, localize} from "./schedule";
+    import {fade} from "svelte/transition"
+    import {getCurrent, getNext, localize, getSchedule} from "./schedule";
 
-    export let group = 4;
+    export let group = 3;
     export let theme = "light";
 
-    
+    let schedule = undefined;
+    let timetable = undefined;
     let current = undefined;
     let next = undefined;
 
-    $: loaded = current != undefined && next != undefined;
+    let showNotification = true;
+
+    if(window.localStorage.getItem("seenChangeGroupNotification")) {
+        showNotification = false;
+    }
+
+    const dismissNotification = () => {
+        showNotification = false;
+        window.localStorage.setItem("seenChangeGroupNotification", true)
+    }
+
+    $: loaded = schedule != undefined && current != undefined && next != undefined;
+
     onMount(async () => {
-        
-        getCurrent().then((x) => {
-            current = x;
-            getNext(current).then((x) => {
-                next = x;
+        schedule = await getSchedule();
+        current = await getCurrent(schedule);
+        next = await getNext(current, schedule);
+        localize(current, next);
 
-                localize(current, next);
-            })
-        })
-
+        timetable = cloneArray(schedule);
     })
-</script>
 
+
+    const cloneArray = arr => {
+        let clone = []
+
+        for(let i = 0; i < arr.length; i++) {
+            clone.push(arr[i]);
+        }
+
+        return clone;
+    }
+</script>
+{#if showNotification}
+    <div class="notification is-info" transition:fade ><button class="delete"on:click={dismissNotification}></button> Можете да смените групата си от настройките</div>
+{/if}
 <section class="hero is-fullheight {theme}">
     <div class="hero-content is-fullheight">
         <div class="container is-fullheight">
@@ -51,7 +75,9 @@
 </section>
 
 <Navbar />
-
+{#if loaded}
+    <Timetable schedule={timetable} group={group} theme={theme}/>
+{/if}
 <Footer theme={theme} />
 
 <style>
@@ -66,7 +92,13 @@
 }
 
 h1 {
-    padding-top: 20%;
+    padding-top: 30%;
+}
+
+@media screen and (max-width: 769px) {
+    h1 {
+        padding-top: 50%;
+    }
 }
 
 .dark h1, .dark h2 {
@@ -98,4 +130,11 @@ h1 {
     color: rgb(233, 77, 137);
 }
 
+
+.notification {
+    position: fixed;
+    top: 65px;
+    right: 5px;
+    z-index: 100;
+}
 </style>

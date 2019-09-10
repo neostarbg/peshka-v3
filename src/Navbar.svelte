@@ -52,6 +52,12 @@
 </nav>
 
 <style>
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+    }
 
     .navbar, .navbar-menu, .navbar-menu.is-active, .navbar-item, .navbar-link, .navbar-dropdown {
         background-color: #212121;

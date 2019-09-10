@@ -12,10 +12,16 @@ export let theme = "light";
 <style>
 
 footer {
-    height: 40px;
-    padding-top: 10px;      
-    margin-top: 10px;
+    height: 60px;
+    padding-top: 18px;
+    margin: 30px 0 0 0;
+    display: block;
     font-family: "Roboto", sans-serif;
+
+    box-shadow: 0 -1px 3px rgba(0,0,0,0.5);
+
+    background-color: #dadada;
+    color: black;
 }
 
 footer.dark {

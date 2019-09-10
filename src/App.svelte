@@ -7,7 +7,7 @@
 
 	let loc = window.location.pathname;
 
-	let group = 4;
+	let group = 3;
 	if(window.localStorage.getItem("uni-group")) {
         group = window.localStorage.getItem("uni-group");
     } else {

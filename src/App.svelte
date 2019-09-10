@@ -11,7 +11,7 @@
 	if(window.localStorage.getItem("uni-group")) {
         group = window.localStorage.getItem("uni-group");
     } else {
-        window.localStorage.setItem('uni-group', 4);
+        window.localStorage.setItem('uni-group', 3);
 	}
 	
 	let theme = "light";

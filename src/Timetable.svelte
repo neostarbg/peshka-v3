@@ -14,6 +14,8 @@
     let today = new Date();
     
     let daysOfWeek = ["Неделя", "Понеделник", "Вторник", "Сряда", "Четвъртък", "Петък", "Събота"];
+    let shortDaysOfWeek = ["Нд", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"];
+
 
     for(let i = 0; i < schedule.length; i++) {
         for (let j = 0; j < schedule[i].length; j++) {
@@ -78,11 +80,9 @@
             <thead>
                 <th>Ден</th>
                 <th>Час</th>
-                <th>Седмица</th>
-                <th>Група</th>
+                <th>Седм.</th>
+                <th>Гр.</th>
                 <th>Зала</th>
-                <th>Сграда</th>
-                <th>Л/У</th>
                 <th>Дисциплина</th>
                 <th>Преподавател</th>
             </thead>
@@ -91,14 +91,11 @@
                     {#each day as subject}
                         {#if (subject["Група"] == 0 || subject["Група"] == displayGroup || displayGroup == 0) && JSON.stringify(subject).toLowerCase().search(searchTerm.toLowerCase()) > -1}
                             <tr class="{today.getDay() == subject["day"] ? "selected": ""}">
-                            <td>{subject["Ден"]}</td>
-                            <!-- (ಠ_ಠ) -->
-                            <td>{(subject["time"]+"").match(/(\d+)/)[0]}:15 - {parseInt((subject["time"]+"").match(/(\d+)/)[0])+2}:15</td>
+                            <td>{shortDaysOfWeek[subject["day"]]}</td>
+                            <td>{(subject["time"]+"").match(/(\d+)/)[0]}:15</td>
                             <td>{subject["Седмица"]}</td>
-                            <td>{subject["Група"] == 0 ? "Всички" : subject["Група"] + " лаб"}</td>
+                            <td>{subject["Група"] == 0 ? "Л" : subject["Група"]}</td>
                             <td>{subject["Зала"]}</td>
-                            <td>{subject["Сграда"]}</td>
-                            <td>{subject["Л/У"]}</td>
                             <td>{subject["Дисциплина"]}</td>
                             <td>{subject["Преподавател"]}</td>
                         </tr>

@@ -3,7 +3,6 @@
 	import E404 from "./E404.svelte";
 	import Home from "./Home.svelte";
 	import Settings from "./Settings.svelte";
-	import Cheatsheet from "./Cheatsheet.svelte"; 
 
 	let loc = window.location.pathname;
 
@@ -27,11 +26,8 @@
 
 {#if loc.match(/^\/$/) || loc.match(/^\/home\/?$/)}
 	<Home group={group} theme={theme}/>
-{:else if loc.match(/^\/cheat(sheet)?\/?$/)}
-	<Cheatsheet />
 {:else if loc.match(/^\/settings\/?$/)}
 	<Settings group={group} theme={theme}/>
 {:else}
 	<E404 />
 {/if}
-

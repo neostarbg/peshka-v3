@@ -4,7 +4,7 @@ export let theme = "light";
 
 <footer class={theme}>
     <div class="container has-text-centered">
-        Peshka v3.0.1a1  - Design by <a href="http://pj-webdesign.com" id="pj">pj-webdesign</a>
+        Peshka v3.0.1 alpha 2  - Design by <a href="http://pj-webdesign.com" id="pj">pj-webdesign</a>
     </div>
 </footer>
 

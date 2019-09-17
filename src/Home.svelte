@@ -4,7 +4,7 @@
     import Timetable from "./Timetable.svelte";
     import {onMount} from "svelte";
     import {fade} from "svelte/transition"
-    import {getCurrent, getNext, localize, getSchedule} from "./schedule";
+    import {getClasses, localize, getSchedule} from "./nextClass";
 
     export let group = 3;
     export let theme = "light";
@@ -29,11 +29,15 @@
 
     onMount(async () => {
         schedule = await getSchedule();
-        current = await getCurrent(schedule);
-        next = await getNext(current, schedule);
+        timetable = cloneArray(schedule);
+
+        let classes = await getClasses(schedule);
+
+        current = classes.current;
+        next = classes.next;
+
         localize(current, next);
 
-        timetable = cloneArray(schedule);
     })
 
 

@@ -82,6 +82,10 @@ let save = (evt) => {
 
 <style>
 
+    .dark h1, .dark h2, .dark h3 {
+        color: #d8d8d8;
+    }
+
     .hero {
         margin-top: 60px;
         padding: 100px 0;
@@ -108,10 +112,17 @@ let save = (evt) => {
     }
 
     .notification {
-        position: absolute;
+        position: fixed;
         z-index: 99;
-        top: 10px;
+        top: 70px;
         right: 10px;
+    }
 
+    hr {
+        border: 1px solid #bababa;
+    }
+
+    .dark hr {
+        border: 1px solid #313131;
     }
 </style>

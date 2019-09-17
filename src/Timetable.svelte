@@ -24,6 +24,13 @@
                     schedule[i][j].day = k;
                 }
             }
+
+            if(schedule[i][j]["Седмица"] === 0) {
+                schedule[i][j]["Седмица"] = "вс.";
+            } 
+            else {
+                schedule[i][j]["Седмица"] += "," + (schedule[i][j]["Седмица"]+2);
+            }
         }
     }
 

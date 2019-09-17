@@ -10,9 +10,19 @@ const getFromJson = () => {
 }
 module.exports.getSchedule = getFromJson;
 
+const getWeek = date => {
+    let onejan = new Date(date.getFullYear(), 0, 1);
+    return Math.ceil((((date - onejan) / 86400000) + onejan.getDay()+1)/7);
+}
+
 module.exports.getClasses = async schedule => {
-    
+
     let date = new Date();
+
+    // Offset to be manually tweaked to adjust week of term
+    const weekOffset = 0;
+    let week = (getWeek(date) + weekOffset) % 2 + 1;
+    
 
     let group = 3;
     let lsgroup = window.localStorage.getItem("uni-group");
@@ -25,14 +35,16 @@ module.exports.getClasses = async schedule => {
 
     let classes = [[]];
 
-    // Filter out all the classes that are irrelevant to the group
+    // Filter out all the classes that are irrelevant to the group and week
     for(let i = 0; i < schedule.length; i++) {
         
         // For each day add an empty array to store the classes for that day
         classes.push([])
         for(let j = 0; j < schedule[i].length; j++) {
             if(schedule[i][j]["Група"] === 0 || schedule[i][j]["Група"] === group) {
-                classes[i].push(schedule[i][j]);
+                if(schedule[i][j]["Седмица"] === week || schedule[i][j]["Седмица"] === 0) {
+                    classes[i].push(schedule[i][j]);
+                }
             }
         }
     }
@@ -68,29 +80,29 @@ module.exports.getClasses = async schedule => {
 
 // Format the time and day of current and next class in the Hero section in the home page
 module.exports.localize = (current, next) => {
-    // In case the days of the week are different (e.g. last class for the day), display the days of the week
+    // In case the days of the week are different from today, display the days of the week
+    let daysOfWeek = ["Неделя", "Понеделник", "Вторник", "Сряда", "Четвъртък", "Петък", "Събота"];
+    let date = new Date();
 
-    if (current["Ден"] != next["Ден"]) {
-
-        format(current);
-        format(next);
-        
+    current["daya"] = daysOfWeek.findIndex(el => el === current["Ден"]);
+    next["daya"] = daysOfWeek.findIndex(el => el === next["Ден"]);
+    
+    if (current["daya"] != date.getDay() || next["daya"] != date.getDay()) {
+        format(current, date);
+        format(next, date);
     }
 }
 
 // Private helper function to format current and next class individually
-let format = cl => {
-    let daysOfWeek = ["Неделя", "Понеделник", "Вторник", "Сряда", "Четвъртък", "Петък", "Събота"];
-    let date = new Date();
-
-    let day = daysOfWeek.findIndex(el => el === cl["Ден"]);
+let format = (cl, date) => {
+    
     // Class is today
-    if(day == date.getDay()) {
+    if(cl["daya"] == date.getDay()) {
         cl.time = `Днес в ${cl.time}`;
     }
 
     // Class is tomorrow
-    else if(day == date.getDay() + 1) {
+    else if(cl["daya"] == date.getDay() + 1) {
         cl.time = `Утре в ${cl.time}`;
     }
 

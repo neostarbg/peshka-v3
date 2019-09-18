@@ -1,10 +1,19 @@
 <script>
-export let theme = "light";
+    export let theme = "light";
+    /**
+     * Navbar.svelte
+     * 
+     * Renders the footer of the website
+     * 
+     * Optional params:
+     *   {String} theme  The website theme - "light" or "dark"
+     * 
+     */
 </script>
 
 <footer class={theme}>
     <div class="container has-text-centered">
-        Peshka v3.0.1 alpha 2  - Design by <a href="http://pj-webdesign.com" id="pj">pj-webdesign</a>
+        Peshka v3.0.1 alpha 3  - Design by <a href="http://pj-webdesign.com" id="pj">pj-webdesign</a>
     </div>
 </footer>
 

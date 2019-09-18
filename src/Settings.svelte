@@ -1,35 +1,51 @@
 <script>
-import Navbar from "./Navbar.svelte";
-import Footer from "./Footer.svelte";
 
-import { fade } from 'svelte/transition';
-import {onMount} from "svelte";
+    /**
+     * Settings.svelte
+     * 
+     * The settings page for the website. Renders a Bulma options form inside of a hero element
+     * Upon change, updates settings in LocalStorage
+     * 
+     * Required components:
+     *   Navbar.svelte
+     *   Footer.svelte
+     *
+     * Optional params:
+     *   {Number} group  The lab group
+     *   {String} theme  The website theme
+     *  
+     */
+    import Navbar from "./Navbar.svelte";
+    import Footer from "./Footer.svelte";
 
-export let group = 4;
-let groupText = group.toString();
+    import { fade } from 'svelte/transition';
+    import {onMount} from "svelte";
 
-export let theme = "light";
-let currentTheme = theme;
+    export let group = 3;
+    let groupText = group.toString();
+
+    export let theme = "light";
+    let currentTheme = theme;
 
 
-let showSuccessNotification = false;
+    let showSuccessNotification = false;
 
-onMount(() => {
-    document.getElementById("labgroup-select").selectedIndex = group-1;
-    document.getElementById("theme-select").selectedIndex = theme == "light" ? 0 : 1;
-})
+    onMount(() => {
+        document.getElementById("labgroup-select").selectedIndex = group-1;
+        document.getElementById("theme-select").selectedIndex = theme == "light" ? 0 : 1;
+    })
 
-let save = (evt) => {
-    evt.preventDefault();
-    window.localStorage.setItem("uni-group", parseInt(groupText));
-    window.localStorage.setItem("theme", theme);
+    let save = (evt) => {
+        evt.preventDefault();
+        window.localStorage.setItem("uni-group", parseInt(groupText));
+        window.localStorage.setItem("theme", theme);
 
-    currentTheme = theme;
-    document.body.className = theme;
+        currentTheme = theme;
+        document.body.className = theme;
 
-    showSuccessNotification = true;
+        showSuccessNotification = true;
 
-}
+    }
 </script>
 
 <Navbar />

@@ -1,6 +1,10 @@
 <script>
-	// 404 Error
-	import E404 from "./E404.svelte";
+	/**
+	 * App.svelte
+	 * 
+	 * The main access point for the app. Acts as a router and loads the lab group and website theme from localStorage
+	 */
+
 	import Home from "./Home.svelte";
 	import Settings from "./Settings.svelte";
 
@@ -28,6 +32,4 @@
 	<Home group={group} theme={theme}/>
 {:else if loc.match(/^\/settings\/?$/)}
 	<Settings group={group} theme={theme}/>
-{:else}
-	<E404 />
 {/if}

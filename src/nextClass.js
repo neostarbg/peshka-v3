@@ -1,4 +1,8 @@
-const getFromJson = () => {
+/**
+ * Fetch the schedule json file. 
+ * @return {Promise}     Upon resolve, returns the parsed JSON Object
+ */
+module.exports.getSchedule = () => {
     return new Promise(async (resolve, reject) => {
         let schedule;
         await fetch("/schedule5.json").then(res => res.json()).then(json => {
@@ -8,13 +12,21 @@ const getFromJson = () => {
         resolve(schedule); 
     })
 }
-module.exports.getSchedule = getFromJson;
 
+/**
+ * Get the number of the week in year
+ * @param {Date} date  The date to get the week of
+ */
 const getWeek = date => {
     let onejan = new Date(date.getFullYear(), 0, 1);
     return Math.ceil((((date - onejan) / 86400000) + onejan.getDay()+1)/7);
 }
 
+/**
+ * Get the next two classes from the schedule
+ * @param {Object} schedule The schedule object
+ * @return {Object}         The current and next class in an object
+ */
 module.exports.getClasses = async schedule => {
 
     let date = new Date();
@@ -78,7 +90,11 @@ module.exports.getClasses = async schedule => {
     return {current: current, next: next};
 }
 
-// Format the time and day of current and next class in the Hero section in the home page
+/**
+ * Format the time and day of current and next class in the Hero section in the home page
+ * @param {Object} current The current class as an object
+ * @param {Object} next    The next class as an object
+ */
 module.exports.localize = (current, next) => {
     // In case the days of the week are different from today, display the days of the week
     let daysOfWeek = ["Неделя", "Понеделник", "Вторник", "Сряда", "Четвъртък", "Петък", "Събота"];
@@ -93,7 +109,11 @@ module.exports.localize = (current, next) => {
     }
 }
 
-// Private helper function to format current and next class individually
+/**
+ * Private helper function to format current and next class individually
+ * @param {Object} cl the class object
+ * @param {Date} date a date to check the day of week from
+ */
 let format = (cl, date) => {
     
     // Class is today

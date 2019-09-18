@@ -1,4 +1,18 @@
 <script>
+
+    /**
+     * Timetable.svelte
+     * 
+     * Renders a Bulma table for the schedule and filters classes by group and search term
+     * 
+     * Required params:
+     *   {Object} schedule  The schedule object
+     * Optional params:
+     *   {Number} group     The lab group to filter classes for
+     *   {String} theme     Website theme - light or dark
+     * 
+     */
+
     import { onMount } from "svelte";
     import { slide } from "svelte/transition";
 
@@ -85,10 +99,10 @@
     <div class="table-container">
         <table class="table is-fullwidth is-striped" id="timetable">
             <thead>
-                <th>Ден</th>
-                <th>Час</th>
-                <th>Седм.</th>
-                <th>Гр.</th>
+                <th>Д</th>
+                <th>Ч</th>
+                <th>С</th>
+                <th>Г</th>
                 <th>Зала</th>
                 <th>Дисциплина</th>
                 <th>Преподавател</th>
@@ -180,4 +194,10 @@
         padding: 20px;
     }
 
+    @media only screen and (max-width: 760px) {
+        td:nth-child(1) {
+            padding-left: 0 !important;
+            margin-left: 0;
+        }
+    }
 </style>

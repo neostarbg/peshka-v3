@@ -1,4 +1,15 @@
 <script>
+
+    /**
+     * Home.svelte
+     * 
+     * The home page of peshka.ml
+     * 
+     * Optional params:
+     * {Number} group  The lab group
+     * {String} theme  The website theme - "light" or "dark" 
+     * 
+     */
     import Navbar from "./Navbar.svelte";
     import Footer from "./Footer.svelte";
     import Timetable from "./Timetable.svelte";

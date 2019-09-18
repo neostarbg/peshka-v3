@@ -1,15 +1,18 @@
-
 <script>
+
+    /**
+     * Navbar.svelte
+     * 
+     * Renders the navbar for the website
+     * 
+     */
+
     import {slide} from "svelte/transition";
     import {onMount} from "svelte";
 
     let menuActive = false;
     let toggleMenu = () => {
         menuActive = !menuActive;
-    }
-
-    let setGroup = group => {
-        window.localStorage.setItem('uni-group', group);
     }
 
     let windowWidth = window.innerWidth;

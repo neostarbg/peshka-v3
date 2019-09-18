@@ -31,9 +31,15 @@
         showNotification = false;
     }
 
+    if(!window.localStorage.getItem("seenChangeGroupNotification")) {
+        window.localStorage.setItem("seenChangeGroupNotification", true)
+
+        // Auto dismiss after 5 seconds
+        setTimeout(dismissNotification, 5000);
+    }
+
     const dismissNotification = () => {
         showNotification = false;
-        window.localStorage.setItem("seenChangeGroupNotification", true)
     }
 
     $: loaded = schedule != undefined && current != undefined && next != undefined;
@@ -63,7 +69,7 @@
     }
 </script>
 {#if showNotification}
-    <div class="notification is-info" transition:fade ><button class="delete"on:click={dismissNotification}></button> Можете да смените групата си от настройките</div>
+    <div class="notification is-info" transition:fade ><button class="delete"on:click={dismissNotification}></button> Можете да смените групата си и темата на сайта от <i class="fa fa-cog"></i></div>
 {/if}
 <section class="hero is-fullheight {theme}">
     <div class="hero-content is-fullheight">

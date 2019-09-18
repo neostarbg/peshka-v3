@@ -31,15 +31,15 @@
         showNotification = false;
     }
 
+    const dismissNotification = () => {
+        showNotification = false;
+    }
+    
     if(!window.localStorage.getItem("seenChangeGroupNotification")) {
         window.localStorage.setItem("seenChangeGroupNotification", true)
 
         // Auto dismiss after 5 seconds
         setTimeout(dismissNotification, 5000);
-    }
-
-    const dismissNotification = () => {
-        showNotification = false;
     }
 
     $: loaded = schedule != undefined && current != undefined && next != undefined;

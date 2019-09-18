@@ -59,7 +59,7 @@
 
     <div class="optionsToggle">
         <button class="button is-info is-outlined" id="toggleOptionsBtn" on:click={()=>{optionsVisible = !optionsVisible;}}>
-            {#if optionsVisible}<i class="fa fa-times"></i>{:else}<i class="fa fa-gear"></i>{/if}
+            {#if optionsVisible}<i class="fa fa-times"></i>{:else}<i class="fa fa-search"></i>{/if}
         </button>
     </div>
     {#if optionsVisible}

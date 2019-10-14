@@ -55,7 +55,7 @@
 
 </script>
 
-<div class="container {theme}">
+<div class="container {theme} {window.localStorage.getItem('nextClassEnabled') == 0 ? 'no-header' : ''}">
 
     <div class="optionsToggle">
         <button class="button is-info is-outlined" id="toggleOptionsBtn" on:click={()=>{optionsVisible = !optionsVisible;}}>
@@ -129,6 +129,9 @@
 </div>
 
 <style>
+    .no-header {
+        margin-top: 100px !important;
+    }
     .container {
         margin-top: 40px;
         margin-bottom: 40px;

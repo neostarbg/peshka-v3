@@ -19,6 +19,7 @@
 
     export let group = 3;
     export let theme = "light";
+    export let nextclass = true;
 
     let schedule = undefined;
     let timetable = undefined;
@@ -55,6 +56,7 @@
 
         localize(current, next);
 
+        console.log(nextclass);
     })
 
 
@@ -71,6 +73,7 @@
 {#if showNotification}
     <div class="notification is-info" transition:fade ><button class="delete"on:click={dismissNotification}></button> Можете да смените групата си и темата на сайта от <i class="fa fa-cog"></i></div>
 {/if}
+{#if nextclass == 1}
 <section class="hero is-fullheight {theme}">
     <div class="hero-content is-fullheight">
         <div class="container is-fullheight">
@@ -94,6 +97,7 @@
         </div>
     </div>
 </section>
+{/if}
 
 <Navbar />
 {#if loaded}

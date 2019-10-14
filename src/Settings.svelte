@@ -27,24 +27,51 @@
     export let theme = "light";
     let currentTheme = theme;
 
+    let isNextClassEnabled = window.localStorage.getItem('nextClassEnabled');
+    
+    let nextClassBtnClassname = "";
+    let nextClassBtnText = "";
+
 
     let showSuccessNotification = false;
 
     onMount(() => {
         document.getElementById("labgroup-select").selectedIndex = group-1;
         document.getElementById("theme-select").selectedIndex = theme == "light" ? 0 : 1;
+
+        if(isNextClassEnabled == 1) {
+            nextClassBtnClassname = "button is-success";
+            nextClassBtnText = "<i class='fa fa-check'></i> Включено"; 
+        } else {
+            nextClassBtnClassname = "button is-danger";
+            nextClassBtnText = "<i class='fa fa-times'></i> Изключено"; 
+        }
     })
 
     let save = (evt) => {
         evt.preventDefault();
         window.localStorage.setItem("uni-group", parseInt(groupText));
         window.localStorage.setItem("theme", theme);
+        window.localStorage.setItem('nextClassEnabled', isNextClassEnabled);
 
         currentTheme = theme;
         document.body.className = theme;
 
         showSuccessNotification = true;
+    }
 
+    const toggleNextClassEnabled = e => {
+        e.preventDefault();
+
+        if(isNextClassEnabled == 1) {
+            isNextClassEnabled = 0;
+            nextClassBtnClassname = "button is-danger";
+            nextClassBtnText = "<i class='fa fa-times'></i> Изключено"; 
+        } else {
+            isNextClassEnabled = 1;
+            nextClassBtnClassname = "button is-success";
+            nextClassBtnText = "<i class='fa fa-check'></i> Включено"; 
+        }
     }
 </script>
 
@@ -62,6 +89,10 @@
                 <h3>Настройки</h3>
             </div>
             <form action="#">
+                <div class="field">
+                    <label>Показване на следващия предмет в header</label><br>
+                    <button class={nextClassBtnClassname} on:click={toggleNextClassEnabled}>{@html nextClassBtnText}</button>
+                </div>
                 <div class="field">
                     <label>Група</label>
                     <p class="control">

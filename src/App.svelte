@@ -24,12 +24,20 @@
         window.localStorage.setItem('theme', "light");
 	}
 
+	let isNextClassEnabled = 1;
+
+	if(window.localStorage.getItem("nextClassEnabled") != undefined) {
+        isNextClassEnabled = window.localStorage.getItem("nextClassEnabled");
+    } else {
+        window.localStorage.setItem('nextClassEnabled', 1);
+	}
+
 	document.getElementsByTagName("body")[0].className = theme;
 
 </script>
 
 {#if loc.match(/^\/$/) || loc.match(/^\/home\/?$/)}
-	<Home group={group} theme={theme}/>
+	<Home group={group} theme={theme} nextclass={isNextClassEnabled}/>
 {:else if loc.match(/^\/settings\/?$/)}
 	<Settings group={group} theme={theme}/>
 {/if}

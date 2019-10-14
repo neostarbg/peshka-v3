@@ -32,6 +32,7 @@
         window.localStorage.setItem('nextClassEnabled', 1);
 	}
 
+	document.getElementsByTagName("html")[0].className = theme;
 	document.getElementsByTagName("body")[0].className = theme;
 
 </script>

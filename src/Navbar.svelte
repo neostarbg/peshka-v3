@@ -45,7 +45,7 @@
         <span class="icon"><i class="fa fa-cog"></i></span>
         <span class="is-hidden-desktop">Настройки</span>
       </a>
-      <a href="https://github.com/neostarbg/peshka-v3" class="navbar-item">
+      <a href="https://github.com/peterlyubenov/peshka-v3" class="navbar-item">
         <span class="icon"><i class="fa fa-github"></i></span>
         <span class="is-hidden-desktop">GitHub</span>
       </a>

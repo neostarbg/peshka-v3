@@ -5,7 +5,7 @@
 module.exports.getSchedule = () => {
     return new Promise(async (resolve, reject) => {
         let schedule;
-        await fetch("/schedule6.json").then(res => res.json()).then(json => {
+        await fetch("/schedule7.json").then(res => res.json()).then(json => {
             schedule = json;
         })
 

@@ -56,7 +56,8 @@
 
         localize(current, next);
 
-        console.log(nextclass);
+        console.log("👀 ... Здравейте 🖐")
+
     })
 
 

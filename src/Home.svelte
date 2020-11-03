@@ -13,9 +13,9 @@
     import Navbar from "./Navbar.svelte";
     import Footer from "./Footer.svelte";
     import Timetable from "./Timetable.svelte";
-    import {onMount} from "svelte";
-    import {fade} from "svelte/transition"
-    import {getClasses, localize, getSchedule} from "./nextClass";
+    import { onMount } from "svelte";
+    import { fade } from "svelte/transition"
+    import { getClasses, localize, getSchedule, getWeekLocalized } from "./nextClass";
 
     export let group = 3;
     export let theme = "light";
@@ -27,6 +27,7 @@
     let next = undefined;
 
     let showNotification = true;
+    let showGroup = true;
 
     if(window.localStorage.getItem("seenChangeGroupNotification")) {
         showNotification = false;
@@ -34,6 +35,10 @@
 
     const dismissNotification = () => {
         showNotification = false;
+    }
+
+    const dismissGroup = () => {
+        showGroup = false;
     }
     
     if(!window.localStorage.getItem("seenChangeGroupNotification")) {
@@ -57,7 +62,6 @@
         localize(current, next);
 
         console.log("👀 ... Здравейте 🖐")
-
     })
 
 
@@ -74,6 +78,12 @@
 {#if showNotification}
     <div class="notification is-info" transition:fade ><button class="delete"on:click={dismissNotification}></button> Можете да смените групата си и темата на сайта от <i class="fa fa-cog"></i></div>
 {/if}
+
+{#if showGroup}
+    <div class="notification is-dark" transition:fade ><button class="delete"on:click={dismissGroup}></button> Тази седмица сме <span class="time">{ getWeekLocalized() }</span> седмица</div>
+{/if}
+
+
 {#if nextclass == 1}
 <section class="hero is-fullheight {theme}">
     <div class="hero-content is-fullheight">

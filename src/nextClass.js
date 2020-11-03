@@ -17,9 +17,30 @@ module.exports.getSchedule = () => {
  * Get the number of the week in year
  * @param {Date} date  The date to get the week of
  */
-const getWeek = date => {
+const getWeekOfYear = date => {
     let onejan = new Date(date.getFullYear(), 0, 1);
     return Math.ceil((((date - onejan) / 86400000) + onejan.getDay()+1)/7);
+}
+
+const getWeek = () => {
+
+    let date = new Date();
+
+    // Offset to be manually tweaked to adjust week of term
+    const weekOffset = 0;
+    return (getWeekOfYear(date) + weekOffset) % 2 + 1;
+}
+
+module.exports.getWeekLocalized = () => {
+    const week = getWeek();
+
+    if(week === 1) {
+        return "1, 3"
+    } else if (week === 2) {
+        return "2, 4"
+    } else {
+        return "Грешна";
+    }
 }
 
 /**
@@ -30,11 +51,7 @@ const getWeek = date => {
 module.exports.getClasses = async schedule => {
 
     let date = new Date();
-
-    // Offset to be manually tweaked to adjust week of term
-    const weekOffset = 0;
-    let week = (getWeek(date) + weekOffset) % 2 + 1;
-    
+    const week = getWeek();
 
     let group = 3;
     let lsgroup = window.localStorage.getItem("uni-group");

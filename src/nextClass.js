@@ -27,7 +27,7 @@ const getWeek = () => {
     let date = new Date();
 
     // Offset to be manually tweaked to adjust week of term
-    const weekOffset = 0;
+    const weekOffset = 1;
     return (getWeekOfYear(date) + weekOffset) % 2 + 1;
 }
 

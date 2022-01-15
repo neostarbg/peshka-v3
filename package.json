@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "async-limiter": "^2.0.0",
-    "marked": "^0.8.0",
+    "marked": "^4.0.10",
     "sirv-cli": "^0.4.4",
     "svelte-transitions": "^1.2.0"
   },
